@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nagipi • Glitch Artifact Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik+Glitch&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <main class="ui">
+    <header class="panel">
+      <div class="brand">
+        <span class="tag">Nagipi</span>
+        <h1>Glitch Artifact</h1>
+        <p>Visualiseur audio 3D </p>
+      </div>
+      <div class="controls">
+        <button id="playPause" class="btn">▶︎ Play</button>
+        <label class="btn file-btn" for="fileInput">Upload MP3</label>
+        <input id="fileInput" type="file" accept="audio/*" hidden />
+        <button id="mic" class="btn">Mic</button>
+        <button id="stop" class="btn">Stop</button>
+      </div>
+    </header>
+
+    <section class="panel grid hud">
+      <div>
+        <h2>Statut</h2>
+        <p id="status">Prêt</p>
+      </div>
+      <div>
+        <h2>Sensibilité</h2>
+        <label>FFT Size <input id="fft" type="range" min="256" max="2048" step="256" value="512" /></label>
+        <label>Gain <input id="gain" type="range" min="0" max="4" step="0.1" value="1.5" /></label>
+        <label>Reactivity <input id="reactivity" type="range" min="0.5" max="3" step="0.1" value="1" /></label>
+        <label>Déform Speed <input id="deformSpeed" type="range" min="0.3" max="2.5" step="0.05" value="1" /></label>
+        <label>Bloom Strength <input id="bloomStrength" type="range" min="0" max="2" step="0.05" value="0.8" /></label>
+        <label>Bloom Radius <input id="bloomRadius" type="range" min="0" max="1.2" step="0.02" value="0.6" /></label>
+        <label>Audio URL <input id="audioUrl" type="url" placeholder="https://...mp3" /></label>
+        <button id="playUrl" class="btn">Play URL</button>
+      </div>
+      <div>
+        <h2>Couleurs</h2>
+        <label>Sphere A <input id="sphereColorA" type="color" value="#baff00" /></label>
+        <label>Sphere B <input id="sphereColorB" type="color" value="#80e0ff" /></label>
+        <label>Cage A <input id="cageColorA" type="color" value="#ff00ff" /></label>
+        <label>Cage B <input id="cageColorB" type="color" value="#00ffff" /></label>
+      </div>
+    </section>
+  </main>
+
+  <button id="toggleUi" class="btn toggle-ui">Hide UI</button>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
