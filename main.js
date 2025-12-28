@@ -127,7 +127,7 @@ const uiRoot = document.querySelector('.ui');
 
 // --- UI responsive: auto-hide on small screens ---
 let userUiOverride = false;
-function isSmallScreen() { return window.innerWidth <= 640; }
+function isSmallScreen() { return window.innerWidth <= 640 || window.innerHeight <= 480; }
 function applyAutoUiVisibility() {
   if (!uiRoot || !toggleUiBtn) return;
   if (!userUiOverride) {

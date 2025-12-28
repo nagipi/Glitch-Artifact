@@ -79,8 +79,8 @@ body::after {
 
 .toggle-ui {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  right: calc(16px + env(safe-area-inset-right));
   z-index: 3;
   padding: 10px 14px;
   font-size: 12px;
@@ -107,8 +107,8 @@ header.panel {
   gap: 12px;
   flex-wrap: wrap;
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: calc(12px + env(safe-area-inset-top));
+  right: calc(12px + env(safe-area-inset-right));
   transform: rotate(-1deg);
 }
 
@@ -184,11 +184,17 @@ header.panel {
 /* Compact HUD panel bottom-left */
 .panel.hud {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  left: calc(14px + env(safe-area-inset-left));
   width: 360px;
   max-width: calc(100% - 28px);
   transform: rotate(-1deg);
+}
+
+/* Avoid panels covering the whole viewport; allow internal scroll */
+.panel {
+  max-height: 45vh;
+  overflow: auto;
 }
 
 h2 {
@@ -239,9 +245,9 @@ input[type="range"] {
   }
   header.panel {
     position: fixed;
-    top: 8px;
-    left: 8px;
-    right: 8px;
+    top: calc(8px + env(safe-area-inset-top));
+    left: calc(8px + env(safe-area-inset-left));
+    right: calc(8px + env(safe-area-inset-right));
     flex-direction: column;
     align-items: stretch;
     transform: none;
@@ -251,9 +257,9 @@ input[type="range"] {
   }
   .panel.hud {
     position: fixed;
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    left: calc(8px + env(safe-area-inset-left));
+    right: calc(8px + env(safe-area-inset-right));
     width: auto;
     transform: none;
   }
@@ -267,9 +273,16 @@ input[type="range"] {
     font-size: 12px;
   }
   .toggle-ui {
-    bottom: 8px;
-    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    right: calc(8px + env(safe-area-inset-right));
     padding: 10px 14px;
     font-size: 13px;
   }
+}
+
+/* Also adapt when viewport height is short (landscape phones) */
+@media (max-height: 480px) {
+  .panel { max-height: 38vh; }
+  header.panel { transform: none; }
+  .panel.hud { transform: none; }
 }
