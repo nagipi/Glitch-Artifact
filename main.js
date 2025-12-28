@@ -125,6 +125,20 @@ const cageColorBInput = document.getElementById('cageColorB');
 const toggleUiBtn = document.getElementById('toggleUi');
 const uiRoot = document.querySelector('.ui');
 
+// --- UI responsive: auto-hide on small screens ---
+let userUiOverride = false;
+function isSmallScreen() { return window.innerWidth <= 640; }
+function applyAutoUiVisibility() {
+  if (!uiRoot || !toggleUiBtn) return;
+  if (!userUiOverride) {
+    const hide = isSmallScreen();
+    uiRoot.classList.toggle('hidden', hide);
+    toggleUiBtn.textContent = hide ? 'Show UI' : 'Hide UI';
+  }
+}
+// Initial state
+applyAutoUiVisibility();
+
 // --- MOTEUR AUDIO (Web Audio API) ---
 let audioCtx; 
 let analyser; // L'outil qui découpe le son en fréquences
@@ -232,6 +246,7 @@ playUrlBtn?.addEventListener('click', async () => {
 });
 toggleUiBtn?.addEventListener('click', () => {
   if (!uiRoot) return;
+  userUiOverride = true;
   const hidden = uiRoot.classList.toggle('hidden');
   toggleUiBtn.textContent = hidden ? 'Show UI' : 'Hide UI';
 });
@@ -394,6 +409,12 @@ function tick() {
   const nextCage = THREE.MathUtils.lerp(currentCage, targetCage, 0.22 + treble * 0.25);
   cage.scale.setScalar(nextCage);
   
+  // Couleur de la cage (pilotée par l'UI)
+  // On utilise le même mélange que pour l'artifact afin de garder une cohérence visuelle
+  tmpColorA.setHex(userColors.cageA).lerp(tmpColorB.setHex(userColors.cageB), mixA);
+  const cageColorMix = tmpColorA.clone().lerp(tmpColorB, swing);
+  cage.material.color.copy(cageColorMix);
+  
   // 3. Déformation manuelle des points de la Cage (CPU)
   // Contrairement à la boule (déformée par Shader GPU), ici on boucle en JS sur les points
   const cagePos = cage.geometry.attributes?.position;
@@ -432,6 +453,7 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix(); 
     renderer.setSize(w, h); 
     composer.setSize(w, h); 
+  applyAutoUiVisibility();
 });
 
 updateStatus('Prêt • charge un MP3 ou active le mic');

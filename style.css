@@ -233,17 +233,43 @@ input[type="range"] {
 
 @media (max-width: 640px) {
   .ui {
-    padding: 12px;
+    padding: 10px;
+    grid-template-rows: auto 1fr;
+    align-content: start;
   }
   header.panel {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    right: 8px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    transform: none;
   }
   .controls {
     width: 100%;
   }
+  .panel.hud {
+    position: fixed;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    transform: none;
+  }
+  h2 {
+    font-size: 16px;
+  }
   .btn {
     flex: 1 1 auto;
     text-align: center;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .toggle-ui {
+    bottom: 8px;
+    right: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
   }
 }

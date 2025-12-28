@@ -56,6 +56,7 @@ python -m http.server 8080
 ### Interface (UI)
 
 * **Hide UI :** Active/désactive l'affichage des panneaux de contrôle.
+* **Mobile :** Sur les petits écrans (≤ 640px), l'UI est cachée automatiquement au chargement pour libérer la scène. Utilisez le bouton « Hide/Show UI » en bas à droite pour afficher les contrôles.
 
 ## Comportement Visuel
 
